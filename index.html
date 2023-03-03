@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peach Please</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/b1c577ff49.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+
+            <p class="name">Peach Please</p>
+
+            <ul class="menu-list" id="menu-list">
+
+                <button class="cerrarMenu" id="cerrar"><i class="fa-solid fa-x"></i></button>
+                <li><a class="menu" href="#home">Home</a></li>
+                <li><a class="menu"href="#products">Products</a></li>
+                <li><a class="menu"href="#reviews">Reviews</a></li>  
+                <li><a class="menu" href="#contact">Contact</a></li>           
+            </ul>
+
+                <div class="cart-label">
+                    <a class="carrito">My bag</a><i class="fa-solid fa-bag-shopping">
+                    <div class="cart-bubble">0</div>
+                    </i>    
+                </div>
+
+                <button class="abrirMenu" id="abrir"><i class="fa-solid fa-bars"></i></button>
+        </nav>
+    </header>
+
+    <main>
+        
+        <div class="wrapper">
+            
+            <section class="section-1" id="home">
+                <div class="hero-image">
+                    <img class="image-section-hero" src="/assets/lady_face_wash-v1587553674579-removebg-preview.png" alt="Beauty Woman">
+                </div>
+
+                <div class="hero-text">
+                    <h1>Filters are great but skincare is better.</h1>
+                    <p class="hero-p">Our skincare products are designed to nourish your skin with natural, anti-inflammatory products.</p>
+                    <p class="hero-p">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio ullam obcaecati, aliquam maiores sed tempora voluptate necessitatibus voluptas doloribus error.</p>
+                    <div class="hero-img-2">
+                        <img src="assets/4853062b.png" alt="">
+                        <img src="assets/5627100b.png" alt="">
+                    </div>
+                </div>
+
+
+            </section>
+
+            <section class="section-2" id="products">
+                <div class="text-container">
+                    <h2>Productos</h2>
+                    <p class="description">CONOCÉ NUESTRAS LÍNEAS DE CUIDADO Y ELEGI LA QUE MEJOR SE ADAPTE A TU PIEL.</p>
+                </div>
+                    <div class="categories">
+                        <button class="category active">Todo</button>
+                        <button class="category" data-category="cremas">Cremas</button>
+                        <button class="category" data-category="balsamos">Balsamos</button>
+                        <button class="category" data-category="exfoliantes">Exfoliantes</button>
+                        <button class="category" data-category="serums">Serums</button>
+                        <button class="category" data-category="limpieza">Limpieza</button>
+                    </div>
+
+                    <div class="products-container"></div>
+                    <div class="showMore-container">
+                        <button class="button-showMore">Ver más</button>
+                    </div>
+            </section>
+
+            <section class="section-review" id="reviews">
+                <div class="text-container">
+                    <h2>Reviews</h2>
+                    <p class="section-p">SUS COMENTARIOS NOS AYUDAN A SEGUIR MEJORANDO!!</p>
+                </div>
+                    <div class="slider-container">
+                        <div class="slider">
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam, atque pariatur.</p>
+                            <img class="review-img" src="/assets/slider-1.jpg" alt="">
+                            <h3 class="review-name">Diana</h3>
+                        </div>
+
+                        <div class="slider">
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam, atque pariatur.</p>
+                            <img class="review-img" src="/assets/slider-2.jpg" alt="">
+                            <h3 class="review-name">Isabella</h3>
+                        </div>
+
+                        <div class="slider">
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam, atque pariatur.</p>
+                            <img class="review-img" src="/assets/slider-3.jpg" alt="">
+                            <h3 class="review-name">Andreina</h3>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section-contact" id="contact">
+        
+                <div class="text-container">
+
+                    <h2>Contacto</h2>
+                    <p class="contact-text">Completa el formulario para recibir nuestras novedades</p>
+                </div>
+                
+                <div class="container-four">
+                   
+                    <form class="form" id="form">
+                        <h3>Completa los siguientes datos:</h3>
+                        <div class="form__field">
+                            <input type="text" placeholder="Name" id="username" class="form-input">
+                            <small></small>
+                        </div>
+
+                        <div class="form__field">
+                            <input type="email" placeholder="Email" id="email" class="form-input">
+                            <small></small>
+                        </div>
+                        <button type="submit" class="submit">Submit</button>
+                    </form>
+
+                    <iframe class="maps" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13139.525222260923!2d-58.44447847713208!3d-34.581869770900084!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcb5924702e2d1%3A0x70b075b79ca9b53e!2sPalermo%20Hollywood%2C%20CABA!5e0!3m2!1ses-419!2sar!4v1677645724145!5m2!1ses-419!2sar" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <div class="contact">
+                    <p>Domicilio direccion inventada 1234 - Capital Federal</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="p-footer">
+            <p>© 2023 Peach Please - Made by Rebeca Fabbricatore</p>
+        </div>
+        
+        <div class="i-footer">
+            <i class="fa-brands fa-instagram footer-i"></i>
+            <i class="fa-brands fa-facebook footer-i"></i>
+            <i class="fa-brands fa-tiktok footer-i"></i>
+            <i class="fa-brands fa-github"></i>
+        </div>
+    </footer>
+        
+        <script src="data.js"></script>
+        <script src="main.js"></script>
+    </body>
+    </html>
