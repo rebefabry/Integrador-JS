@@ -1,32 +1,63 @@
-// CONTENEDOR DE PRODUCTOS
 const products = document.querySelector(".products-container");
-// BOTON VER MAS
 const showMore = document.querySelector(".button-showMore");
-// CONTENEDOR DE CATEGORIAS
 const categories = document.querySelector(".categories");
-// HTML COLLECTION DE LAS CATEGORIAS
 const categoriesList = document.querySelectorAll(".category");
+const cartIcon = document.getElementById("cart-icon")
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+const saveLocalStorage = (cartList) => {
+    localStorage.setItem("cart", JSON.stringify(cartList))
+};
 
 
+const prepareButtons = () => {
+    const buttonList = document.querySelectorAll(".button-compra");
+    buttonList.forEach(addEvent)
+}
 
-// FUNCION QUE MUESTRA EL PRODUCTO
+// carrito PONELE
+let cartList = [];
+
+const addProductCart = (dataset) => {
+    console.log(dataset)
+    cartList.push(dataset);
+    saveLocalStorage(cartList)
+}
+
+const addEvent = (button) => {
+    const dataSet = button.dataset
+    button.addEventListener("click", function(){
+        addProductCart(dataSet)
+    })
+}
+
+const renderBubbleCart = () => {
+    return `
+        <div class="cart-bubble">${cart.length}</div>
+    `
+}
+
+cartIcon.innerHTML = renderBubbleCart();
+
+// Mostrar productos, boton ver mas y filtrar por categorias
 const renderProduct = (product) => {
-    const { id, name, precio, cardImg } = product;
+    const { id, name, precio, cardImg, texto } = product;
     return `
     <div class="card">
     <img src="${cardImg}" alt="${name}">
             <h4>${name}</h4>
+			<p class="texto">${texto}</p>
             <p>$${precio}</p>
             <button class="button-compra" data-id="${id}" data-name="${name}" data-precio="${precio}" data-img="${cardImg}">agregar</button>
     </div>`;
 }
 
-// FUNCION PARA MOSTRAR DE A PARTES LOS PRODUCTOS
+
 const renderDividedProducts = (index = 0) => {
     products.innerHTML += productsController.dividedProducts[index].map(renderProduct).join("");
 }
 
-// FUNCION QUE MUESTRA LOS PRODUCTOS FILTRADOS POR CATEGORIA
 const renderFilteredProducts = (category) => {
     const productsList = productsData.filter((product) => {
         return product.category === category;
@@ -34,16 +65,17 @@ const renderFilteredProducts = (category) => {
     products.innerHTML = productsList.map(renderProduct).join("");
 };
 
-// FUNCION QUE MUESTRA LOS PRODUCTOS FILTRADOS O SIN FILTRAR
+
 const renderProducts = (index = 0, category = undefined) => {
     if (!category) {
         renderDividedProducts(index);
+        prepareButtons()
         return;
     }
     renderFilteredProducts(category);
+    prepareButtons()
 };
 
-// FUNCION QUE MUESTRA U OCULTA BTN VER MAS
 const changeShowMoreBtnState = (category) => {
     if (!category) {
         showMore.classList.remove("hidden");
@@ -52,7 +84,6 @@ const changeShowMoreBtnState = (category) => {
     showMore.classList.add("hidden");
 };
 
-// FUNCION PARA CAMBIAR COLOR DE BTN DE CATEGORIA SELECCIONADA
 const changeBtnActiveState = (selectedCategory) => {
     const categories = [...categoriesList];
     categories.forEach((categoryBtn) => {
@@ -64,14 +95,12 @@ const changeBtnActiveState = (selectedCategory) => {
     });
 };
 
-// FUNCION QUE EJECUTA VER MAS Y CATEGORIAS
 const changeFilterState = (e) => {
     const selectedCategory = e.target.dataset.category;
     changeShowMoreBtnState(selectedCategory);
     changeBtnActiveState(selectedCategory);
 };
 
-// FUNCION PARA APLICAR FILTRO
 const applyFilter = (e) => {
     if (!e.target.classList.contains("category")) {
         return;
@@ -87,28 +116,28 @@ const applyFilter = (e) => {
     }
 };
 
-// FUNCION QUE INDICA SI LLEGUE AL ULTIMO INDEX
 const isLastIndexOf = () => {
     return (
         productsController.nextProductsIndex === productsController.productsLimit
     );
 };
 
-// FUNCION PARA QUE FUNCIONE BTN VER MAS
 const showMoreProducts = () => {
     renderProducts(productsController.nextProductsIndex);
     productsController.nextProductsIndex++;
     if (isLastIndexOf()) {
         showMore.classList.add("hidden");
+        console.log(showMore.classList)
     }
 };
 
-// FUNCION PUERTA DE ENTRADA
+
 const init = () => {
     renderProducts();
     categories.addEventListener("click", applyFilter);
     showMore.addEventListener("click", showMoreProducts);
 }
+
 
 init();
 
@@ -141,7 +170,7 @@ window.addEventListener("resize", function(){
 	width = sliderInd[0].clientWidth;
 });
 
-// menu hamburguesa
+// Menu hamburguesa
 
 const menu = document.querySelector("#menu-list");
 const abrir = document.querySelector("#abrir");
@@ -166,10 +195,15 @@ const checkUsername = () => {
     
     let valid = false; 
 
-    const username = nameInput.value.trim(); 
+    const min = 3;
+    const max = 12;
+
+    const username = nameInput.value.trim();
 
     if (isEmpty(username)){
-        showError (nameInput, "El nombre es obligatorio")
+        showError (nameInput, "El nombre es obligatorio.")
+    } else if (!isBetween(username.length, min, max)) {
+        showError(nameInput, `El nombre debe tener entre ${min} y ${max} caracteres.`)
     } else {
         showSuccess(nameInput);
         valid = true;
@@ -179,13 +213,17 @@ const checkUsername = () => {
 
 };
 
+const isBetween = (length, min, max) => {
+    return  length < min || length > max ? false : true;
+ }
+
 const checkMail = () => {
     let valid = false;
 
     const emailValue = emailInput.value.trim();
 
     if (isEmpty(emailValue)){
-        showError(emailInput, "El mail es obligatorio");
+        showError(emailInput, "El mail es obligatorio.");
      }
 
         else if (!isEmailValid(emailValue)) {
@@ -238,5 +276,3 @@ form.addEventListener("submit", (e) => {
 		form.submit();
 	}
 });
-
-
