@@ -3,6 +3,11 @@ const showMore = document.querySelector(".button-showMore");
 const categories = document.querySelector(".categories");
 const categoriesList = document.querySelectorAll(".category");
 const cartIcon = document.getElementById("cart-icon")
+const cartContainer = document.querySelector(".cart-container")
+const closeBag = document.querySelector(".close-bag")
+const cardItems = document.querySelector(".card-items")
+const cardItem = document.querySelectorAll(".card")
+const total = document.querySelector(".price-total")
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
@@ -16,13 +21,52 @@ const prepareButtons = () => {
     buttonList.forEach(addEvent)
 }
 
+const prepareDeleteProduct = () => {
+    const deleteProduct = document.querySelectorAll(".delete-product");
+    deleteProduct.forEach(deleteEvent)
+}
+    
+const deleteEvent = (button) => {
+    button.addEventListener("click", function(){
+        deleteElementLocalStorage(button.dataset.id)
+    })
+}
+
+const deleteElementLocalStorage = (id) => {
+    cart = cart.filter((element) => {
+        return element.id !== id
+    }) 
+    saveLocalStorage(cart)
+    renderCartItems()
+}
+
+
 // carrito PONELE
-let cartList = [];
+
+const isExistingProduct = (product) => {
+    return cart.find ((item) => {
+        return item.id === product.id
+    })
+}
+
+const addUnitToProduct = (product) => {
+    return cart.map((cartProduct) => {
+        return cartProduct.id === product.id 
+        ? {...product, quantity: cartProduct.quantity + 1} 
+        : cartProduct
+    })
+}
 
 const addProductCart = (dataset) => {
-    console.log(dataset)
-    cartList.push(dataset);
-    saveLocalStorage(cartList)
+    
+    if (isExistingProduct(dataset)){
+        cart = addUnitToProduct(dataset)
+    } else {
+        cart.push({...dataset, quantity:1})
+    }
+
+    saveLocalStorage(cart)
+    cartIcon.innerHTML = renderBubbleCart();
 }
 
 const addEvent = (button) => {
@@ -33,10 +77,58 @@ const addEvent = (button) => {
 }
 
 const renderBubbleCart = () => {
+
+    let totalItems = cart.reduce((acc, cur) => {
+        return acc + cur.quantity
+    }, 0)
+
     return `
-        <div class="cart-bubble">${cart.length}</div>
+        <div class="cart-bubble">${totalItems}</div>
     `
 }
+
+const renderCartItems = () => {
+    cardItems.innerHTML = cart.map(renderCartProduct).join("")
+    prepareDeleteProduct()
+    showTotal()
+}
+
+const getCartTotal = () => {
+    return cart.reduce((acc, cur) => {
+        return acc + Number(cur.precio) * cur.quantity;
+    }, 0);
+}
+
+const showTotal = () => {
+    total.innerHTML = `${getCartTotal()} pesos`;
+}
+
+const showCartContainer = () => {
+    cartContainer.classList.add("cart-visibility")
+    renderCartItems()
+    showTotal()
+}
+
+const hideCartContainer = () => {
+    cartContainer.classList.remove("cart-visibility")
+}
+
+const renderCartProduct = (item) => {
+    const {id, name, precio, img, quantity} = item
+    return `
+    <div class="item">
+        <img src="${img}" alt="${name}">
+        <h5>${name}</h5>
+        <h5>${precio}</h5>
+        <h5>Amount: ${quantity}</h5>
+        <span class="delete-product" data-id="${id}">X</span>
+    </div>
+    `
+
+}
+
+cartIcon.addEventListener("click", showCartContainer)
+closeBag.addEventListener("click", hideCartContainer)
 
 cartIcon.innerHTML = renderBubbleCart();
 

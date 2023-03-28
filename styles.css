@@ -603,6 +603,15 @@ footer{
     height: 100vh;
     text-align: center;
     box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.5);
+    display: none;
+}
+
+.cart-visibility{
+    display: inline-block;
+}
+
+.delete-product-button{
+    display: none;
 }
 
 .cart-container h3{
