@@ -100,7 +100,7 @@ const getCartTotal = () => {
 }
 
 const showTotal = () => {
-    total.innerHTML = `${getCartTotal()} pesos`;
+    total.innerHTML = `Total: $${getCartTotal()} pesos`;
 }
 
 const showCartContainer = () => {
@@ -117,9 +117,9 @@ const renderCartProduct = (item) => {
     const {id, name, precio, img, quantity} = item
     return `
     <div class="item">
-        <img src="${img}" alt="${name}">
+        <img class="item-img" src="${img}" alt="${name}">
         <h5>${name}</h5>
-        <h5>${precio}</h5>
+        <h5>$${precio}</h5>
         <h5>Amount: ${quantity}</h5>
         <span class="delete-product" data-id="${id}">X</span>
     </div>
