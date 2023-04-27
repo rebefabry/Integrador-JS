@@ -121,6 +121,7 @@ a{
     justify-content: center;
     align-items: center;
     font-size: 18px;
+    margin-top: -20px;
 }
 
 .fa-house{

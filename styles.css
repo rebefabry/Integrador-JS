@@ -624,7 +624,7 @@ footer{
     
     .section-1{
         flex-direction: column;
-        background-image: url(assets/Web/background.jpg);
+        background-color: #FBACBE;
         background-repeat: no-repeat;
         background-size: cover;
     }
@@ -653,6 +653,14 @@ footer{
         text-align: justify;
     }
 
+    .section-about{
+        height: 50vh;
+    }
+
+    .about-text{
+        gap: 15px;
+    }
+
     .carrito{
         display: none;
     }
@@ -679,7 +687,7 @@ footer{
         font-size: 30px;
     }
 
-    .section-p, .slider p, .contact-text, h3, .contact p{
+    .section-p,.slider p, .contact-text, h3, .contact p{
         text-align: center;
     }
 
@@ -724,6 +732,10 @@ footer{
 
     .section-1{
         background-image: none;
+    }
+
+    .section-about{
+        height: 800px;
     }
 
     .products-container{
